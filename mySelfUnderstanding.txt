@@ -1,0 +1,16 @@
+ first to make an empty folder in your system. 
+ Now open this empty folder in vs code. 
+ now do npm init. 
+ this will create an empty npm project. 
+ which contain only package.json file. 
+
+to track all the changes we  add git to this folder. 
+
+we do  git init. 
+
+PS C:\Users\mohan\OneDrive\Desktop\BackEndProject> git init
+Initialized empty Git repository in C:/Users/mohan/OneDrive/Desktop/BackEndProject/.git/
+
+now all this is untacable. for that we need to stage all of them. 
+git add .
+
