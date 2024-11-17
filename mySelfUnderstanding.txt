@@ -1,8 +1,8 @@
- first to make an empty folder in your system. 
- Now open this empty folder in vs code. 
- now do npm init. 
- this will create an empty npm project. 
- which contain only package.json file. 
+first to make an empty folder in your system. 
+Now open this empty folder in vs code. 
+now do npm init. 
+this will create an empty npm project. 
+which contain only package.json file. 
 
 to track all the changes we  add git to this folder. 
 
@@ -13,4 +13,196 @@ Initialized empty Git repository in C:/Users/mohan/OneDrive/Desktop/BackEndProje
 
 now all this is untacable. for that we need to stage all of them. 
 git add .
+
+for commit 
+git commit -m "add inicial files for backend"
+this can also be done throught the vs code GUI. 
+
+write now the branch at which we are working is master branch. 
+
+to rename this branch to main we can type 
+to match github standards. 
+git branch -M main
+renaming the -M used to rename existing current branch to some new name 
+we can see the branch name in left corner 
+---------------------------------------------
+first creating a new repository in github
+name is BackendProject 
+ssh https://github.com/Umeshchaurasiya123/BackendProject.git
+--------------------------------------
+
+Now to push the code set the origin throught the ssh . 
+
+git remote add origin https://github.com/Umeshchaurasiya123/BackendProject.git
+
+Now remote is set. so all the code will push to repository named BackendProject 
+
+Now to push as well as set the upstream we use command. 
+
+git push -u origin main
+
+to check the status we have git status. 
+
+give information about changes, trackable , untackedable file etc. 
+---------------------------------------------------------------------------------------------------------------------
+
+Senario: one important work we do it storing the images of user. 
+for storing the images we use 3rd party services. like aws , cloudnary , azur, clould, etc. 
+first photo upload and stores temparaily in our server as incase of user connection is lost. than using third party service 
+uplaod to clould. 
+
+some company directly uplaod to cloudnary. depend on senarios. 
+
+so let create an folder name public annd inside that creat another folder named temp . 
+
+the problem is when we do git status here. it can not able to track the folder. 
+git only track the file. 
+so for that we have an file name .getKeep 
+this is nothibg but empty file
+used to keep the track the of the  empty folder which might be need for project structue. 
+-------------------------------------------------------------------------------------------------
+now in repository we need some new file like .gitignore 
+tell the git to ignore which file, folder , apikeys, etc. 
+basically ignoring the sensitive files or files. 
+or files or folder which  which can download any time. 
+like node_modules. 
+
+in market we have some  gitignore generator. 
+create useful .gitignore files for your project 
+https://mrkandreev.name/snippets/gitignore-generator/#Node
+
+-------------------------------------------------------------------
+environment variable files. 
+
+.env
+.env.test
+.env.production
+
+environment variable like port etc are taken from systme for secqurity not from files. 
+
+but in case if youe haev to still waht to push that to github in that case you can  delete its name from .gitignore file. 
+like .env.sample 
+
+----------------------------------------------------------------------------------------------------------
+now in package.json we specify that our main file is index.js 
+so create this also. 
+
+but but but.
+
+it depend on program to stores the whole dirctory file here aur inside the src folder. 
+creating an src is good practice. 
+
+
+now in src create a 3 file name constants.js, index.js, app.js
+
+
+-----------------------------------------------------------------------
+insdie the package.js
+now index.js file is inside the src folder. 
+
+And here in this project we are using import syntax so have to specify the type as module rather than common which is used 
+in required 
+
+now in past we saw that when we chanegs anything in  progrma , add , remove  to refrect the application 
+have to star and stop the application
+
+to avoid that we can use an utility nodemon
+
+nodemon is nothing but jai sai hi file chanegs in dirctory are detected automatically restart the  application 
+
+so nodemon is a tool that help the develop node.js based application by automatically restarting the node application when file changes 
+in directory(folder or repository) are detected
+
+-------------------- dependency vs dev dependency------------------------------------
+dev dependency is  dependency which is used during the devlopment. ise prodiction mai nahi leke jate. 
+
+yai sirf devlopment mai kaam aaiga. production mai ise kaam mai nahi lete. 
+
+npm i nodemon this will make it as  main dependency 
+
+for devlopment  dependency we haev 
+
+you can install nodemon as devlopment dependency
+
+npm install --save-dev nodemon 
+
+or npm install -D nodemon
+
+now in package.json file i get 
+"devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+
+now nodemon will reload whatever you write inside the src folder if change detected. 
+
+but that also need to be specify in package.json file. 
+
+now i will create one command in script name dev 
+
+"scripts": {
+    "dev": "node src/index.js"
+  },
+
+now when i do npm run dev
+it will execute the command.  node src/index.js 
+basically run the index.js which is our main program. 
+
+--------------------------------------------------------------------------
+
+issue bitween .enn and import. 
+
+to use the .env we have to use  require('dotenv').config()
+
+but in type we mention  module 
+
+means we have to sue require syntax not import . 
+
+there is solution for that also. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
