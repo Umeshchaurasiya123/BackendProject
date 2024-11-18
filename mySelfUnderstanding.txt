@@ -137,14 +137,14 @@ now nodemon will reload whatever you write inside the src folder if change detec
 
 but that also need to be specify in package.json file. 
 
-now i will create one command in script name dev 
+now i will create one command in script  name dev  inside package.json
 
 "scripts": {
-    "dev": "node src/index.js"
+    "dev": "nodemon src/index.js"
   },
 
 now when i do npm run dev
-it will execute the command.  node src/index.js 
+it will execute the command.  nodemon src/index.js    wrong not -> "node src/index.js"
 basically run the index.js which is our main program. 
 
 --------------------------------------------------------------------------
@@ -158,6 +158,58 @@ but in type we mention  module
 means we have to sue require syntax not import . 
 
 there is solution for that also. 
+
+----------------------------------------------------------------------------------------src folder------------------
+
+now i want some folder inside the src folder 
+
+professinal prodiction grade project setup. 
+
+controllers or controller -> here comes the main functinality 
+
+db -> database connection logic. database can by any mongodb, sql etc. 
+
+middlerwares-> koi code jo inbetween run karana hai. 
+
+senario:
+koi request aai use servar fullfil kar ne sai pahle hi mai koi chekkign lagana chahta hu.to use middleware mai karege. 
+there is some request comes from the client and before it is fullfil by the servar i want some king of chekign or somethig else. 
+
+like beforeing  fullfiling the user request i want to ckeck whether this user is  eligible to fullfil the request or not.  
+so i will takes the cookies.  to know if you are eligible or not. 
+all this done inside the middlerwares
+
+moddels -> to stoes the schema. 
+
+routes->
+
+till now in small project we mentioning the routes in index.js file. 
+like app.get(/instagram)
+
+theit are lot of routes and its becomes complex as well. 
+so it is stores in seperates folder names routes. 
+
+utils-> 
+utilities. here we stores the same code which we needs many times in progrma. which we can use many times. 
+like writing a email. 
+
+like file upload is an utility which can be done in photo upload, video upload, profile phtoto uplaod etc. 
+
+like token lena dena. which is gona use many times. why not to create a  seperate utill  for that.and use many times . 
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
