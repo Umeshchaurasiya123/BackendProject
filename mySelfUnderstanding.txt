@@ -197,7 +197,76 @@ like file upload is an utility which can be done in photo upload, video upload, 
 
 like token lena dena. which is gona use many times. why not to create a  seperate utill  for that.and use many times . 
 
------------------------------------------------------------------------------------------------------------------
+---------------------------------------------prettier packaeg ----------------------------------------------
+
+plugin  or package
+
+prettier 
+
+its vs code extension is also avaialble. 
+but in project there are many people who are working. 
+they have their own way  writing the code. own setting. 
+some have default 2 space while other 4. 
+some  gaves the ; at the end while other not  if not compulsory. 
+
+now the problem is when your merge this code. 
+it will give to many conflicts. 
+
+so team should be on same page. 
+ki what is the  what type of formating is there. wehther we are using 2 space or 4 space 
+
+
+senaroi. 
+
+suppose you take one branch  an your editor adding  4 space  eveywhere. 
+some one else editor add 2 space  eveywhere. 
+now same file but thousand of conflict. 
+
+so not only the extention of vs  but also prettier setting is also importnat to add on each project bases. 
+
+prettier is also an dev dependency majorly. 
+
+npm i -D prettier 
+
+now one  prettier packaeg is added . some manual work is also there. 
+have to add some file manually. 
+
+
+prettier configuration file.
+
+.prettierrc  // it is prettier configuration file. 
+
+some configuration
+
+{
+    "singleQuote":false,
+    "bracketSpacing":true,
+    "tabWidth":2,
+    "semi":true,
+    "trailingcomma":"es5"
+    
+}
+
+---------------------------------.prettierignore-------------------------------------------
+
+prettier ignore. like git ignore there is also prettier ignore also. 
+which is about which file shoud prettier not do anything. 
+
+mostly node_modules, 
+/node_modules
+/.dist
+*.env 
+.env.*
+.env
+/ .vscode 
+
+// there is also  code generator for thsi also. like we use in .gitignore. 
+//////////////////////////////  / .vscod is vs code setting file
+
+
+
+
+
 
 
 
