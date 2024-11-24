@@ -264,18 +264,259 @@ mostly node_modules,
 //////////////////////////////  / .vscod is vs code setting file
 
 
+-------------------------------------------------------Episode7---------------------------------------------------------
+how to connect database in mern with debugging 
+
+how you can connect database is not import. 
+but  in which many ways we can connect the database is important. 
+what are the problem which we gona face. 
+
+how in production level database are connect and what are the featrue it have 
+
+the database which we are gona use is mongodb. 
+mongodb online also called mongodb atlas
+most of professinal application also use mongodb online(mongodb atlast). rather than installing the mongodb in system.
+
+mongodb atlast is service which provide the online database. 
+
+--------------Altest project cretion. ------------------------
+
+first go to mongodb atlast. 
+in the project section. Create one project. 
+
+Now create  a new cluster. 
+
+In MongoDB, a cluster refers to a collection of servers
+that work together to manage and store data.
+Clusters ensure high availability, scalability, and fault tolerance.
+
+basically server where our database resides. 
+
+for this project the cluster tier which we are gona use is M0 FREE.
+cluster tier  basically  refers to size and capacity of cluster. 
+And cluster0 is the default name of the clustetr(server) where our database resides . 
+
+
+In MongoDB Atlas,
+Network Access and Database Access
+are two separate security configurations.
+Here's the distinction:
+
+1. Network Access
+This determines which devices (IP addresses) are allowed to connect to the Atlas cluster.
+
+Purpose: Controls network-level access by restricting or allowing specific IPs to connect to the MongoDB Atlas cluster.
+Key Configuration:
+IP Whitelisting: You add IP addresses or CIDR blocks (e.g., 192.168.1.1/32) to a list. Only these IPs can initiate a connection.
+0.0.0.0/0: Allows access from all IPs (not recommended for production due to security risks).
+Example Use Case:
+If your development environment uses a specific IP address (e.g., 203.0.113.25), 
+you would add that IP to the Network Access list so that your machine can connect to the cluster.
+
+2. Database Access
+This determines who (user accounts) can log in to the database and what they are authorized to do.
+
+Purpose: Controls user-level permissions within the database.
+Key Configuration:
+Database Users: You create and manage users with specific usernames and passwords.
+Roles and Privileges: Assign roles (e.g., read, readWrite, dbAdmin) to control what actions a user can perform.
+Users must authenticate with their credentials to access the database.
+Example Use Case:
+Create a user, developer_user, with a readWrite role on a database named myDatabase.
+This user can connect to the database but can only perform read and write operations, not administrative tasks.
+
+-------------some .evn file congiguration-----------------------
+
+PORT=8000  where application will gona run 
+MONGODB_URI=mongodb+srv://umeshc1998:<db_password>@cluster0.tijty.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 
 
+in utils folder inside constants mention the name of database. 
+
+
+export const DB_NAME="Videotube"
+
+DB_NAME is not in .env becasue it is not an  system specfic variabe. 
+it is an appliaction specific variable. 
+
+
+---------------------------------------Database connection approaches-------------------------------------------
+------------------Discussion----------------------------------
+
+Database connection approach. 
+1->
+Because in project First index file will Gona execute. 
+Then why not mention database connection inside the index.js file. 
+So when the index file loads . 
+The function where database connection logic is mentioned will execute through the iif(immediately invoked function)
+
+
+2-> 
+Create a db name folder  and write the connection function inside that folder and in index file import that function. 
+
+------------------------------------installation------------------------------
+
+Now the database connection will happend throught the moongose as it is an ORM  and app will create through the express. 
+
+so install both. 
+
+And .env is also need as all the confidential data will load thright the .env
+for .env we have to handle the required syntax. as our project is based on type  module js not common js. 
+
+install as main dependency not a dev dependency
+
+npm i mongoose express dotenv
+
+---------------database concept important ------------------------------
+1 alwase wrapper the database conection in try catch or promissed like resolve , reject. 
+
+2 database is alwase in another continent. 
+basically it take some time. 
+means use aysn and await. 
+
+so use try catch and asyn await when dealing with database. 
+
+
+1st approach. 
+
+use iif. 
+
+//iif
+giving semicolon before the start of iif is good practice. As there are many iif or statememnt exist. 
+which does not have any semicolon at the end. 
+to to clanup perpose.
+iif is good practice.
+
+--------------------------------------approach 1------------------------------- 
+
+;(async ()=>{
+
+  
+
+})();
+
+// process is something which is gave to us by the node.js 
+
+/* this approach causing the pollution of index file. 
+import express from "express";
+const app=express();
+
+//iif
+;(async ()=>{
+
+    try {
+           
+       await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
+       // basically database is connected. but does our application is able to talk to those database. 
+       //app.on check whether it is able to talk or not to database. 
+
+        app.on("error",()=>{
+            console.log("Errro: ",error)
+            throw error
+        })
+
+        app.listen(process.env.PORT, ()=>{
+            console.log(` App is listening on port ${process.env.PORT}`);
+        })
+
+    } catch (error) {
+        console.error("Error: ", error)
+        throw error
+
+    }
+
+
+})();
+
+*/
+
+--------------------------------------approch 2------------------------- 
+
+for 2nd approach create an  empty index.js file in db folder. 
+
+there can be many index.js file in our application. 
+
+-------------------.dotenv congiguration----------------
+
+As early as possible in your appliaction , import and congigur dotenv
+
+basically first file which is loading. in that file  environment vaiable should load only.
+
+so the fist file is index.js file. 
+
+so there on the top only import 
+
+require('dotenv').config({path: './env'})
+
+but problem is in our program we gave required as well as import. which causing the inconsistancy in program. 
+
+
+--------------------------npm run dev ---------------------
+error. 
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\mohan\OneDrive\Desktop\BackEndProject\src\constants'
+imported from C:\Users\mohan\OneDrive\Desktop\BackEndProject\src\index.js
+
+in src/index.js 
+import { DB_NAME } from "./constants";
+
+// basically it is constants.js we have to import. 
+
+
+---------------Another error-------------
+Error [ERR_UNSUPPORTED_DIR_IMPORT]: Directory import 'C:\Users\mohan\OneDrive\Desktop\BackEndProject\src\db'
+is not supported resolving ES modules imported from C:\Users\mohan\OneDrive\Desktop\BackEndProject\src\index.js
+
+//basically src/index.js can not able to find 
+./db/index.js
+import connectDB from "./db";
+
+we have to modified it to 
+import connectDB from "./db/index.js";
+
+----error---------------
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\Users\mohan\OneDrive\Desktop\BackEndProject\src\constants'
+imported from C:\Users\mohan\OneDrive\Desktop\BackEndProject\src\db\index.js
+
+now in db\index.js there is import statement which is 
+import { DB_NAME } from "../constants"; giving error .
+// correct.  
+import { DB_NAME } from "../constants.js"
+
+-------------error----------------
+file:///C:/Users/mohan/OneDrive/Desktop/BackEndProject/src/index.js:2
+require('dotenv').config({path :"./env"})
+^
+
+ReferenceError: require is not defined in ES module scope, you can use import instead
+This file is being treated as an ES module because it has a '.js'
+file extension and 'C:\Users\mohan\OneDrive\Desktop\BackEndProject\package.json' contains "type": "module".
+To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+
+require('dotenv').config({path :"./env"})
+this is giving error. 
 
 
 
+we have to use in src/index.js file 
+this syntax 
+import dotenv from 'dotenv';
+dotenv.config({ path: './env' });
 
+And in package.json. 
 
+  "scripts": {
+    "dev": "nodemon -r dotenv/config  --experimental-json-modules src/index.js"
 
+  }
 
+earlier it was 
 
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  }
 
+dot.env is only need to load that the start of the project. not other places. 
 
 
 
