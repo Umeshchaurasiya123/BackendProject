@@ -518,6 +518,224 @@ earlier it was
 
 dot.env is only need to load that the start of the project. not other places. 
 
+-----------------------------------------Episode8 ---------------------------------
+Custom API Responce and errro handling 
+here we are gona deal with how classes are defiend for custom errors. 
+how and why  classes are defined for custom api Responc. 
+little bit touch the middlerwares as well. 
+
+Now connectDB is asynchonus method. 
+asynchronus method whenever complete return one promise as well.
+
+In JavaScript, a Promise is an object that represents the eventual completion (or failure) of an asynchronous operation
+and its resulting value. Promises provide a cleaner way to handle asynchronous code compared to traditional callbacks,
+avoiding callback hell and making the code easier to read and manage.
+
+means it have .than and .catch as well. 
+so in connectDB wich is asychronus method. so when it complete in index.js file we can add .then() and .catch()
+
+connectDB()
+.then()
+.catch()
+
+connectDB()
+.then(()=>{
+
+    // Database connected 
+    // to start the server 
+    app.listen(process.env.PORT||8000, ()=>{
+        console.log(` server is running at port :${process.env.PORT}`);
+    })
+})
+.catch((err)=>{
+
+    console.log("MongoDB connection failed !!! ",err)
+})
+
+---------------------------getting the data from user or client----------------------------
+
+in express two thing with which we are mostly work with is request and responce. 
+
+the two msot import request throught which backend got the data is. 
+
+1->request.params
+getting the data from URL. to backend. 
+is part of request.params
+
+2-> request.body 
+here data can be comes in diffrent ways. 
+like from form, json, body, etc. 
+
+so to handle all this diffrnet type of data from client. 
+some activity or confiquration  need to be done. 
+which is mmostly done throught app.use()
+
+req.body contains the key-value pairs of data submitted in requests body. 
+bydefault is it undefiend. and populate when we sue body-parsing middlerwares. 
+more to bread in express documentation. 
+
+body-parser is by default inbuild in node.js. 
+
+
+
+
+-------------------cookies-----------------------------
+how to set cookies securly from server to user browser. 
+and how to read that. 
+also how to get cookies from client or send by  the request to backend. 
+
+cookies-parser is npm is need to work with cookie. 
+
+cookie-parser is a middleware for Express.js 
+that parses cookies sent by the client (browser) in HTTP requests
+and makes them available as a JavaScript object in your application. 
+It simplifies working with cookies in your Express application.
+
+
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+// Use cookie-parser middleware
+app.use(cookieParser());
+
+// Example route to read cookies
+app.get('/', (req, res) => {
+  console.log('Cookies:', req.cookies); // Logs all cookies
+  res.send('Check the console for cookies!');
+});
+
+// Example route to set a cookie
+app.get('/set-cookie', (req, res) => {
+  res.cookie('myCookie', 'cookieValue', { httpOnly: true });
+  res.send('Cookie has been set!');
+});
+
+// Example route to clear a cookie
+app.get('/clear-cookie', (req, res) => {
+  res.clearCookie('myCookie');
+  res.send('Cookie has been cleared!');
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
+
+------------middlerwares--------------------
+
+isntall the cors and cookie-parser npm packaes. 
+
+wwhever we use middlerwares it is done through app.use()
+
+What is app.use() in Express?
+In Express.js, app.use() is a method used to register middleware functions or routes in your application.
+Middleware functions are functions that execute during the request-response cycle
+and can modify the request (req) and response (res) objects or execute additional code.
+
+How Does It Work?
+Middleware functions receive three arguments:
+
+req (the HTTP request object)
+res (the HTTP response object)
+next (a function to pass control to the next middleware)
+Middleware functions can:
+
+Perform tasks like logging, authentication, etc.
+Call next() to move to the next middleware or route handler.
+
+Examples of app.use()
+---------------------------------------1. Applying Middleware Globally--------------------
+Middleware applied globally affects all routes.
+
+const express = require('express');
+const app = express();
+
+// A middleware to log request details
+app.use((req, res, next) => {
+  console.log(`${req.method} request to ${req.url}`);
+  next(); // Pass control to the next middleware or route handler
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
+
+output. 
+
+GET request to /
+
+--------------------------------2. Using Middleware for a Specific Route-----------------------------------
+You can restrict middleware to run only for specific routes
+
+// Middleware applied only to "/admin" route
+app.use('/admin', (req, res, next) => {
+  console.log('Admin middleware');
+  next();
+});
+
+app.get('/admin', (req, res) => {
+  res.send('Welcome to the admin panel');
+});
+
+app.get('/user', (req, res) => {
+  res.send('Welcome to the user page');
+});
+
+
+Output:
+
+Visiting /admin logs "Admin middleware".
+Visiting /user does not run the middleware.
+
+
+------------------------------------3. Using Third-Party Middleware---------------------
+Middleware from libraries like body-parser, cookie-parser, etc., can be added with app.use().
+
+
+const bodyParser = require('body-parser');
+
+// Use body-parser to parse JSON request bodies
+app.use(bodyParser.json());
+
+app.post('/data', (req, res) => {
+  console.log(req.body); // Logs parsed JSON body
+  res.send('Data received');
+});
+
+------------------------------------------Points to Remember:--------------------------
+Order Matters:
+
+Middleware runs in the order it is registered. Place global middleware before routes.
+Must Call next():
+
+Always call next() unless you want to end the request-response cycle (e.g., by sending a response).
+Middleware Chain:
+
+If next() is called, Express looks for the next matching middleware or route handler.
+
+
+
+-------------------------Summary:------------------------
+app.use() is a powerful tool in Express to manage middleware.
+It helps in modifying requests and responses, logging, handling errors, authenticating users, and much more.
+You can apply it globally, to specific routes, or for third-party libraries,
+making it a cornerstone of Express applications.
+
+
+
+
+
+
+
+
+
 
 
 
