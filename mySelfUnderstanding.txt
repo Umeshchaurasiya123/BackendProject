@@ -80,7 +80,7 @@ environment variable files.
 
 environment variable like port etc are taken from systme for secqurity not from files. 
 
-but in case if youe haev to still waht to push that to github in that case you can  delete its name from .gitignore file. 
+but in case if yoe have to still waht to push that to github in that case you can  delete its name from .gitignore file. 
 like .env.sample 
 
 ----------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ And here in this project we are using import syntax so have to specify the type 
 in required 
 
 now in past we saw that when we chanegs anything in  progrma , add , remove  to refrect the application 
-have to star and stop the application
+have to start and stop the application
 
 to avoid that we can use an utility nodemon
 
@@ -149,7 +149,7 @@ basically run the index.js which is our main program.
 
 --------------------------------------------------------------------------
 
-issue bitween .enn and import. 
+issue bitween .env and import. 
 
 to use the .env we have to use  require('dotenv').config()
 
@@ -173,7 +173,7 @@ middlerwares-> koi code jo inbetween run karana hai.
 
 senario:
 koi request aai use servar fullfil kar ne sai pahle hi mai koi chekkign lagana chahta hu.to use middleware mai karege. 
-there is some request comes from the client and before it is fullfil by the servar i want some king of chekign or somethig else. 
+there is some request comes from the client and before it is fullfil by the servar i want some kind of checking or somethig else. 
 
 like beforeing  fullfiling the user request i want to ckeck whether this user is  eligible to fullfil the request or not.  
 so i will takes the cookies.  to know if you are eligible or not. 
@@ -205,7 +205,7 @@ prettier
 
 its vs code extension is also avaialble. 
 but in project there are many people who are working. 
-they have their own way  writing the code. own setting. 
+they have their own way of writing the code. own setting. 
 some have default 2 space while other 4. 
 some  gaves the ; at the end while other not  if not compulsory. 
 
@@ -213,7 +213,7 @@ now the problem is when your merge this code.
 it will give to many conflicts. 
 
 so team should be on same page. 
-ki what is the  what type of formating is there. wehther we are using 2 space or 4 space 
+ki what is the type of formating is there. wehther we are using 2 space or 4 space 
 
 
 senaroi. 
@@ -347,7 +347,7 @@ it is an appliaction specific variable.
 Database connection approach. 
 1->
 Because in project First index file will Gona execute. 
-Then why not mention database connection inside the index.js file. 
+Then why mention database connection inside the index.js file. 
 So when the index file loads . 
 The function where database connection logic is mentioned will execute through the iif(immediately invoked function)
 
@@ -361,7 +361,7 @@ Now the database connection will happend throught the moongose as it is an ORM  
 
 so install both. 
 
-And .env is also need as all the confidential data will load thright the .env
+And .env is also need as all the confidential data will load throught the .env
 for .env we have to handle the required syntax. as our project is based on type  module js not common js. 
 
 install as main dependency not a dev dependency
@@ -439,11 +439,11 @@ there can be many index.js file in our application.
 
 -------------------.dotenv congiguration----------------
 
-As early as possible in your appliaction , import and congigur dotenv
+As early as possible in your appliaction , import and configur dotenv
 
 basically first file which is loading. in that file  environment vaiable should load only.
 
-so the fist file is index.js file. 
+so the fist file is src/index.js file mention in package.json. 
 
 so there on the top only import 
 
@@ -556,7 +556,7 @@ connectDB()
 
 in express two thing with which we are mostly work with is request and responce. 
 
-the two msot import request throught which backend got the data is. 
+the two most import request throught which backend got the data is. 
 
 1->request.params
 getting the data from URL. to backend. 
@@ -567,12 +567,12 @@ here data can be comes in diffrent ways.
 like from form, json, body, etc. 
 
 so to handle all this diffrnet type of data from client. 
-some activity or confiquration  need to be done. 
+some activity or confiquration  need to be done. in app()
 which is mmostly done throught app.use()
 
 req.body contains the key-value pairs of data submitted in requests body. 
-bydefault is it undefiend. and populate when we sue body-parsing middlerwares. 
-more to bread in express documentation. 
+by default is it undefiend. and populate when we use body-parsing middlerwares. 
+more to read in express documentation. 
 
 body-parser is by default inbuild in node.js. 
 
@@ -582,7 +582,7 @@ body-parser is by default inbuild in node.js.
 -------------------cookies-----------------------------
 how to set cookies securly from server to user browser. 
 and how to read that. 
-also how to get cookies from client or send by  the request to backend. 
+also how to get cookies from client or send by the request to backend. 
 
 cookies-parser is npm is need to work with cookie. 
 
@@ -626,9 +626,6 @@ app.listen(PORT, () => {
 
 ------------middlerwares--------------------
 
-isntall the cors and cookie-parser npm packaes. 
-
-wwhever we use middlerwares it is done through app.use()
 
 What is app.use() in Express?
 In Express.js, app.use() is a method used to register middleware functions or routes in your application.
@@ -729,7 +726,36 @@ You can apply it globally, to specific routes, or for third-party libraries,
 making it a cornerstone of Express applications.
 
 
+---------------------app.use()---------------------------------------
+app.use is used when we have to do some configuration or setting up the middlewere. 
 
+app.use(cors)
+
+it is setup in backend to specify who can able to access the backend. 
+
+
+app.use() is mostly used in app.js 
+
+-------------------------------------------app.js-----------------------------------
+
+some common configuration which we do in app.js is 
+
+1 first creat the app and export the app. 
+2 we set the cors (cross origin configuration on server)  which allows who can  acess  the our server
+3 we set the body parser to get the data from the client when some form is submited. 
+4 we set the express.urlencode to  get  the data from the client throgu the URL. 
+5 we set the express.static to store the static fiels(favicon, images, vidoe etcc in my public folder)
+6 app.use(cookieParser())   to set and read the cookies to client browser. i.e performing kind of cread operation in client browser. 
+
+finally export the app which gona use in src/index.js result in providing the app. 
+
+
+------------------------------------------utilities or services - ------------------------------------------------------------
+
+we are gona talk the database  many times . 
+in user controller, video controller etc. 
+
+important  concnet. 
 
 
 
