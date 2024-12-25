@@ -758,6 +758,118 @@ in user controller, video controller etc.
 important  concnet. 
 
 
+--------------------------------------- Episode 9 User and Video model with hooks and JWT--------------------------------
+
+
+creating a model 
+
+video model and user model. 
+
+id is created by mongodb itself. 
+
+avtar and conver images, videoFile, thumbnail,  will upload in 3rd party service mostly clouldnary.  we only gona store the url of that. 
+
+
+------------------------------------npm i mongoose-aggregate-paginate-v2--------------------------------
+
+
+
+this packages help in writting aggraigate pipline in node.js. 
+can find out the aggrigation Qwuey in mondo db website also
+
+to aggrigate the watchistory we are mostly gona use this. 
+
+it is inserted as a plugin in the project mostly. 
+
+
+----------------------------------------- plugin -------------------------------------------
+
+plugin  is somekind of reasuable codde which can be add to model. 
+like giving some  extra functinality to exsiting schema. 
+
+
+--------------------------------------------hooks or middlerwares-----------------------
+
+hooks in model schema are middlerwares which is used to manages db opration. 
+
+it apply to each schema and can not be reused. 
+
+
+common hooks are pre and post. 
+
+pre hook is  like in case if any db opetaion. like save. before that whatevet mention in pre do thant and then pass it to next middleware or hook.
+
+-------------------------------------------JWT--------------------------
+
+jwt JavaScript web tokenization. 
+
+it is used to do the authorization and authentication of  users. 
+
+and provide the stateleass tranmission of data. 
+
+
+1 ones user is done the login (password chekcing etc is done throguth bcrypt)  and it is valid then token is generates. 
+
+2 this token is send to client. 
+
+3 client uses this token as a key to access diffrent routes  
+
+
+---------------------------------------------bcrypt---------------------------------------------------------------
+
+we can not stoes the password as it is in database. 
+
+so bcrypt do the task of crypting , decrypting the password 
+
+
+-------------------------------hook middleware and bcrypt and funtion for usercontext
+here before saving the data to database. whar we are doing it cheking is passowrd modified if not then
+ pass the exection to next() basically next middle ware if any. 
+
+
+if password is not modofied then it start doing the encryping the password and stored the encrypted password  in database. 
+
+UserSchema.pre("save",async function(next){
+
+    if(!this.isModified("password")) { return next();}
+
+    this.password= await bcrypt.hash(this.password,10)
+    next()    
+
+})
+
+
+
+
+
+
+------------------------------designing custome methods in schema------------------------------------
+
+UserSchema.methods.ispasswordCorrect= async function(password){
+
+    return  await bcrypt.compare(password,this.password)
+
+}
+
+
+------------------------------------ jwt-------------------------------
+
+json web token 
+
+
+var token = jwt.sign({ foo: 'bar' }, privateKey, { algorithm: 'RS256' });
+ 
+it accespt the data , as well as private key and algorithem name. 
+
+so private key is mostly  .evn file. 
+
+it also accept expiry date of token as well. 
+
+jwt.sign({
+  data: 'foobar'
+}, 'secret', { expiresIn: '1h' });
+
+
 
 
 
