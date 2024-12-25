@@ -8,8 +8,8 @@ class ApiError extends Error{
         error=[],
         stack="",
 
-
-    ){
+    )
+    {
 
         super(message)
         this.statusCode=statusCode
