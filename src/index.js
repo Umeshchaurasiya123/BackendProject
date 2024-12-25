@@ -23,8 +23,7 @@ const app=express();
     try {
            
        await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-       // basically database is connected. but does our application is able to talk to those database. 
-       //app.on check whether it is able to talk or not to database. 
+      
 
         app.on("error",()=>{
             console.log("Errro: ",error)
