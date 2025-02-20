@@ -22,7 +22,7 @@ fullName:{
     index:true
 },
 
-avtar:{
+avatar:{
     type:String,  // clouldnary url 
     required:true,
     trim:true
@@ -76,7 +76,7 @@ UserSchema.methods.ispasswordCorrect= async function(password){
 }
 
 
-username.methods.generateAccessToken= function(){
+UserSchema.methods.generateAccessToken= function(){
 
     return jwt.sign(
     {
@@ -95,7 +95,7 @@ username.methods.generateAccessToken= function(){
 }
 
 
-username.methods.generateRefreshToken= function(){
+UserSchema.methods.generateRefreshToken= function(){
 
     return jwt.sign(
         {
@@ -115,5 +115,6 @@ username.methods.generateRefreshToken= function(){
 
 
 export  const User =mongoose.model("User",UserSchema)
+
 
 

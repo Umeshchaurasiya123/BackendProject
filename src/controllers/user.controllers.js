@@ -1,5 +1,5 @@
 import { asyncHandler } from "../utils/asynchHandler.js";
-import {ApiError} from "../utils/ApiError.js";
+import { ApiError } from "../utils/ApiError.js";
 import {User} from "../models/user.model.js";
 
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
@@ -11,7 +11,7 @@ const registerUser=asyncHandler(async (req,res)=>{
 
     
 
-    const {fullname,email,username,password}=req.body
+    const {fullName,email,username,password}=req.body
     console.log("email: ",email)
     console.log("password: ",password)
 
@@ -20,8 +20,14 @@ const registerUser=asyncHandler(async (req,res)=>{
     // }
 
     if(
-        [fullname,email,username,password].some((field)=>{
-            field?.trim()===""
+        [fullName,email,username,password].some((field)=>{
+            
+          if( field===undefined || field===null || field.toString().trim()==="")
+          {
+            return true
+          }
+          
+              
         })
     ) 
     {
@@ -44,19 +50,34 @@ const registerUser=asyncHandler(async (req,res)=>{
     console.log(req.files)
 
     const avatarLocalPath=req.files?.avatar[0]?.path; 
+    console.log(avatarLocalPath)
     
-    const coverImageLocalPath=req.files?.coverImage[0]?.path
+    // const coverImageLocalPath=req.files?.coverImage[0]?.path
+    // console.log(coverImageLocalPath)
+
+    // getting the error in optinal channing. 
+    // trying  to read coverImage which is undefiend its fist  value. 
+    // i.e can not read properties of undefiend 
+
+    let coverImageLocalPath;
+
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length >0 ){
+         coverImageLocalPath=req.files.coverImage[0].path
+    }
+
 
     if(!avatarLocalPath){
         throw new ApiError(400,"Avatar file is required")
     }
 
     const avatar=await uploadOnCloudinary(avatarLocalPath)
+    console.log(avatar)
 
     const coverImage=await uploadOnCloudinary(coverImageLocalPath)
+    console.log(coverImage)
     
     if (!avatar){
-        throw new ApiError(400,"Avatar file is required")
+        throw new ApiError(400,"Avatar file is requireds")
     }
 
     const user = await User.create({
@@ -83,16 +104,11 @@ const registerUser=asyncHandler(async (req,res)=>{
     )
 
 
-    
-
 
     
     // res.status(200).json({
     //     message:"ok"
     // })
-
-
-
 
 
 })
