@@ -209,6 +209,7 @@ const logoutUser=asyncHandler(async(req,res)=>{
                 refreshToken:undefined
             }
         },
+        // this will give new updated  value with refreshToken undefined. 
         {
             new:true
         }
