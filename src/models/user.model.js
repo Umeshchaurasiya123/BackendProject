@@ -15,6 +15,15 @@ username:{
     index:true
 },
 
+email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowecase: true,
+    trim: true, 
+},
+
+
 fullName:{
     type:String,
     required:true,
@@ -28,7 +37,6 @@ avatar:{
     trim:true
     
 },
-
 
 coverImage:{
     type:String, // clouldnary url
