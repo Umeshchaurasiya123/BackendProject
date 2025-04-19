@@ -59,6 +59,7 @@ password:{
 refreshToken:{
 
     type:String,
+    default:""
 
 },
 
