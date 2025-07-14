@@ -1,6 +1,18 @@
 import {Router} from 'express';
 
-import {logoutUser,registerUser,loginUser,refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage, getUserChannelProfile, getWatchHistory} from "../controllers/user.controllers.js";
+import {
+       logoutUser,
+       registerUser,
+       loginUser,
+       refreshAccessToken,
+       changeCurrentPassword,
+       getCurrentUser,
+       updateAccountDetails,
+       updateUserAvatar,
+       updateUserCoverImage,
+       getUserChannelProfile,
+       getWatchHistory
+} from "../controllers/user.controllers.js";
 
 const router =Router()
 

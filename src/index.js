@@ -53,7 +53,8 @@ connectDB()
     // Database connected 
     // to start the server 
     app.listen(process.env.PORT||8000, ()=>{
-        console.log(` server is running at port :${process.env.PORT}`);
+        //console.log(` server is running at port :${process.env.PORT}`);
+        console.log(`⚙️ Server is running at port : ${assignedPort}`);
         
     })
 })
